@@ -1,0 +1,54 @@
+#include<cs50.h>
+#include<stdio.h>
+#include<math.h>
+
+int counter = 0; 
+int remain = 0;
+
+float get_cash(string prompt);
+
+int main(void)
+{
+    float cash_f = get_cash("Change owed:");
+    int cash_i = round(cash_f * 100);
+    while (cash_i > 0)
+    {
+        if (cash_i >= 25)
+        {
+            remain = cash_i % 25;
+            counter = counter + (cash_i - remain) / 25;
+            cash_i = remain;
+        }
+        else if (cash_i >= 10)
+             {
+                 remain = cash_i % 10;
+                 counter = counter + (cash_i - remain) / 10;
+                 cash_i = remain; 
+             }
+             else if (cash_i >= 5)
+                   {
+                         remain = cash_i % 5;
+                         counter = counter + (cash_i - remain) / 5;
+                         cash_i = remain; 
+                   }
+                  else
+                  {
+                         remain = cash_i % 1;
+                         counter = counter + (cash_i - remain) / 1;
+                         cash_i = remain; 
+                  }   
+    }
+    printf("%i\n", counter);
+}
+
+// Prompt user for positive float
+float get_cash(string prompt)
+{
+    float f;
+    do
+    {
+        f = get_float("%s", prompt);
+    }
+    while (f < 0);
+    return f;
+}
